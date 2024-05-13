@@ -1,0 +1,78 @@
+body { 
+  background: #748AA2; 
+  background: url('../img/backgroung.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+  
+canvas {
+  display: block;
+  margin: 3rem auto;
+  -webkit-box-shadow: 0px 0px 10px 0px #f90606;
+  box-shadow: 0px 0px 10px 0px rgba(24, 39, 247, 0.856);
+  background: hwb(211 42% 40% / 0.237);
+}
+
+h1 {
+  color: #34568B;
+  text-align: center;
+  top: 2%;
+  left: 40%;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: 'Georgia', sans-serif;
+  text-decoration: underline; 
+}
+
+#score {
+  justify-content: center;
+  text-align: left;
+  margin-right: 15%;
+  color: #F76C6C;
+}
+
+#maxScore {
+  text-align: left;
+  margin-right: 15%;
+  color: #88B04B;
+}
+
+#gameOverNotify {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #C5210E;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 24px;
+  z-index: 2;
+}
+
+#gameWinNotify {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #60A800;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 24px;
+  z-index: 2;
+}
+
+#playButton {
+  background-color: #B0C4C9;
+  color: #34568B;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+#playButton:hover {
+  background-color: #DFFFFF;
+}
