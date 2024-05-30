@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animation Canvas</title>
-    <!--<script type="module" src="scripts/main.js" defer></script> -->
-    <script type="module" src="scripts/main.js"defer></script>
-    <script type="module" src="scripts/randomBlock.js"defer></script>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" type="image/x-icon" href="img/backgroung.jpg">
-
+    <script type="module" src="scripts/main.js"></script>
 </head>
 <body>
-
-      
     <h1>DROP THE NUMBERS</h1>
-    <div id="maxScore">Ton meilleur score: </div>
+    <div id="maxScore"> 
+        <span>Ton meilleur score:</span> 
+        <span id="max">0</span> 
+    </div>
     <div id="score">Ton score: </div>
-    <!--<canvas id="myCanvasBackground" width="1200" height="675" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-       -->
     <canvas class="canvas" id="my-canvas" width="350" height="350"></canvas>
-    <button id="playButton" >Play</button>
+    <button id="playButton">Play</button>
+    <div id="gameOverNotify" class="game-over-notify" style="display: none;">Game Over</div>
+    <div id="gameWinNotify" class="game-win-notify" style="display: none;">Congrats!</div>
+    <button id="homeButton" class="home-button">
+        <img src="img/icon.webp" alt="Home" />
+    </button>
 
-     <div id="gameOverNotify" class="game-over-notify" style="display: none;">Game Over</div>
-     
-     <div id="gameWinNotify" class="game-win-notify" style="display: none;">Congrats!</div>
-
-
-
+    <!-- Audio elements -->
+    <audio id="backgroundMusic" loop>
+        <source src="audio/on-the-game.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="mergeSound">
+        <source src="audio/colision-game-2043.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="gameOverSound">
+        <source src="audio/game-over-1945.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="winSound">
+        <source src="audio/win-sound-2019.mp3" type="audio/mpeg">
+    </audio>
 </body>
 </html>
-
-        
-     

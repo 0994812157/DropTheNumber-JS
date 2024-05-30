@@ -1,4 +1,3 @@
-
 import { ControlledBlock } from './controlledBlock.js';
 import { getRandomRect, drawScore } from './util.js';
 
@@ -15,10 +14,6 @@ export class Game {
         this.numRows = this.canvas.height / this.rectHeight;
         this.maxRectangles = this.numColumns * this.numRows;
         this.animationId = null;
-        this.isGameOverSoundPlayed = false; // Add this line
-        this.isWinSoundPlayed = false; // Add this line
-        
-        this.user.maxScore =parseInt(document.getElementById("max").textContent,10) ;
     }
 
     launchNewRect() {
@@ -47,7 +42,7 @@ export class Game {
 
         let gameOver = columnHeights.some(height => height >= 8);
         if (gameOver) {
-            this.endGame();            
+            this.endGame();
             return;
         }
 
@@ -79,10 +74,6 @@ export class Game {
                         this.score += this.rectangles[lowerRectIndex].number;
                         this.rectangles.splice(lowerRectIndex === index1 ? index2 : index1, 1);
 
-                        // Play merge sound
-                        const mergeSound = document.getElementById('mergeSound');
-                        mergeSound.play();
-
                         if (lowerRectIndex === index2) {
                             rect1.posY = rect2.posY;
                         }
@@ -98,12 +89,11 @@ export class Game {
                             index1--;
                         }
                         //console.log("ici je fusionne les blocks");
-/*
+
                         if (rect1.number === 8192) {
                             this.winGame();
                             return;
-                        }*/
-                        this.checkForWinCondition(); // Check for win condition after every merge
+                        }
                         break;
                     }
                 }
@@ -137,34 +127,9 @@ export class Game {
             this.rectangles.splice(this.rectangles.indexOf(rightNeighbor), 1);
             this.checkAndMergeNeighbors(rect); // Appel récursif pour fusionner davantage
         }
-        this.mergeRectangles();
-        /*
-        if (rightNeighbor && rightNeighbor.number === rect.number) {
-            rect.number *= 2;
-            this.score += rect.number;
-            this.rectangles.splice(this.rectangles.indexOf(rightNeighbor), 1);
-            if (rect.number === 256) {
-                this.winGame();
-                return;
-            }
-            this.checkAndMergeNeighbors(rect);
-        }*/
     }
-    checkForWinCondition() {
-        if (this.rectangles.some(rect => rect.number === 1024)) {
-            this.winGame();            
-        }
-    }
+
     endGame() {
-        if (!this.isGameOverSoundPlayed) { // Check if the sound has already been played
-            this.isGameOverSoundPlayed = true; // Set the flag to true
-            const gameOverSound = document.getElementById('gameOverSound');
-            gameOverSound.play().catch(error => console.error('Failed to play game over sound:', error));
-        }
-        
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
         document.getElementById("gameOverNotify").style.display = "block";
         document.getElementById('playButton').disabled = false;
         document.getElementById('playButton').style.display = "block";
@@ -174,16 +139,6 @@ export class Game {
     }
 
     winGame() {
-        // Play win sound
-        if (!this.isWinSoundPlayed) { // Check if the sound has already been played
-            this.isWinSoundPlayed = true; // Set the flag to true
-            const winSound = document.getElementById('winSound');
-            winSound.play().catch(error => console.error('Failed to play win sound:', error));
-        }
-
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        backgroundMusic.pause();
-        backgroundMusic.currentTime = 0;
         document.getElementById("gameWinNotify").style.display = "block";
         document.getElementById('playButton').disabled = false;
         document.getElementById('playButton').style.display = "block";
@@ -193,11 +148,9 @@ export class Game {
     }
 
     updateMaxScore() {
-        if (this.score > this.user.maxScore) { 
-            console.log(this.score );
-            console.log(this.user.maxScore);
+        if (this.score > this.user.maxScore) {
             this.user.maxScore = this.score;
-            document.getElementById("max").innerText =this.user.maxScore;
+            document.getElementById("maxScore").innerText = `Votre meilleur score : ${this.user.maxScore}`;
         }
     }
 
@@ -205,9 +158,9 @@ export class Game {
         this.update();
         this.draw();
         drawScore(this.score);
-        if (!this.isPaused) {
+        setTimeout(() => {
             this.animationId = requestAnimationFrame(this.animate.bind(this));
-        }
+        }, 5);
     }
 
     start() {
@@ -216,16 +169,10 @@ export class Game {
         this.animate();
     }
     resetGame() {
-        this.isGameOverSoundPlayed = false; // Reset the flag
-        this.isWinSoundPlayed = false; // Reset the flag
         document.getElementById("gameOverNotify").style.display = "none";
         document.getElementById("gameWinNotify").style.display = "none";
         this.rectangles = [];
         this.score = 0;
         drawScore(this.score);
-    }
-    pauseGame() {
-        this.isPaused = true;
-        this.disabled = true;
     }
 }
